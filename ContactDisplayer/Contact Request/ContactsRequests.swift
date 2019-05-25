@@ -15,7 +15,7 @@ enum Errors: Error {
 
 /// getting Phone contacts
 class pContacts {
-    static func getAllContacts() -> [CNContact] {
+    static func getPhoneContacts() -> [CNContact] {
         let contactStore = CNContactStore()
         let keysToFetch = [
             CNContactFormatter.descriptorForRequiredKeys(for: .fullName),
@@ -41,10 +41,10 @@ class pContacts {
     }
     
     
-    /// get saved contacts from locall database
+    /// get saved contacts from local database
     static func getContacts(completion: @escaping ([Contact]) -> Void){
         var contacts = [Contact]()
-        let phoneContacts = getAllContacts()
+        let phoneContacts = getPhoneContacts()
         for contact in phoneContacts {
             if let pNumber = (contact.phoneNumbers.first?.value)?.stringValue, let contactName = contact.givenName as? String , let contactId = UserdefaultHelper.getContactId() as? Int  {
                 CoreDataRequests.contactExistsByPhone(pNumber) { (success,id) in

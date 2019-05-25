@@ -37,6 +37,7 @@ class ContactsViewController: UIViewController {
         
     }
     
+    /// getting type of contacts, edited,deleted and newely added
     @objc func getContacts()  {
         emptyAllArrays()
         pContacts.getContacts(completion: { (pContacts) in
@@ -71,18 +72,15 @@ class ContactsViewController: UIViewController {
     @IBAction func segmentChanged(_ sender: Any) {
         switch segmentController.selectedSegmentIndex {
         case 0: displayedContacts = editedContacts
-        tableView.reloadData()
             break
         case 1: displayedContacts = newContacts
-        tableView.reloadData()
             break
         case 2: displayedContacts = deletedContacts
-        tableView.reloadData()
             break
         default:
             displayedContacts = editedContacts
-            tableView.reloadData()
         }
+        tableView.reloadData()
     }
     
     
