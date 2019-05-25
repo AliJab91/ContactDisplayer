@@ -9,8 +9,8 @@
 import Foundation
 class UserdefaultHelper {
     static private var counter = "counter"
-    
-    static func incrementUserId() {
+    /// incremet user id after each save
+    static func incrementContactId() {
         if let userId = UserDefaults.standard.integer(forKey: counter) as? Int {
             if userId == 0  {
                 UserDefaults.standard.set(1, forKey: counter)
@@ -20,7 +20,8 @@ class UserdefaultHelper {
         }
     }
     
-    static func getUserId() ->Int {
+    /// returning a userid
+    static func getContactId() ->Int {
         if let userId = UserDefaults.standard.integer(forKey: counter) as? Int {
             if userId == 0 {
                 UserDefaults.standard.set(1, forKey: counter)

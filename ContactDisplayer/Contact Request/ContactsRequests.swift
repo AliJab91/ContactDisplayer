@@ -10,10 +10,10 @@ import Foundation
 import Contacts
 import UIKit
 enum Errors: Error {
-
     case error(Error)
 }
 
+/// getting Phone contacts
 class pContacts {
     static func getAllContacts() -> [CNContact] {
         let contactStore = CNContactStore()
@@ -22,12 +22,11 @@ class pContacts {
             CNContactPhoneNumbersKey,
             CNContactEmailAddressesKey,
             CNContactThumbnailImageDataKey] as [Any]
-        
         var allContainers: [CNContainer] = []
         do {
             allContainers = try contactStore.containers(matching: nil)
         } catch {
-           print( "Error fetching containers") // you can use print()
+            print( "Error fetching containers")
         }
         var results: [CNContact] = []
         for container in allContainers {
@@ -47,8 +46,7 @@ class pContacts {
         var contacts = [Contact]()
         let phoneContacts = getAllContacts()
         for contact in phoneContacts {
-            
-            if let pNumber = (contact.phoneNumbers.first?.value)?.stringValue, let contactName = contact.givenName as? String , let contactId = UserdefaultHelper.getUserId() as? Int  {
+            if let pNumber = (contact.phoneNumbers.first?.value)?.stringValue, let contactName = contact.givenName as? String , let contactId = UserdefaultHelper.getContactId() as? Int  {
                 CoreDataRequests.contactExistsByPhone(pNumber) { (success,id) in
                     if success {
                         if let contactId = id {
@@ -61,7 +59,7 @@ class pContacts {
                             }
                         }else {
                             contacts.append(Contact(pNumber: pNumber,name:contactName,id: contactId))
-                            UserdefaultHelper.incrementUserId()
+                            UserdefaultHelper.incrementContactId()
                         }
                     })}
                 }
@@ -71,7 +69,7 @@ class pContacts {
     }
     
     
-
+    
     /// save contacts locally and return the errors
     static func saveContactsLocally(_ contacts:[Contact], completion:@escaping ([contactSaveError])->Void) {
         CoreDataRequests.saveContacts(contacts, completion: { (errors) in

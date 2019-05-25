@@ -64,6 +64,7 @@ class CoreDataRequests {
         }
     }
     
+    ///check if contact
     static func contactExistsByPhone(_ phone: String,completion: @escaping(Bool,Int?) ->Void)  {
         let context = AppDelegate.shared.persistentContainer.viewContext
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: CoredataKeys.Contacts.rawValue)
@@ -89,6 +90,7 @@ class CoreDataRequests {
         }
     }
     
+    ///check if contact exist in database by name
     static func contactExistsByName(_ name: String,completion: @escaping(Bool,Int?) ->Void)  {
         let context = AppDelegate.shared.persistentContainer.viewContext
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: CoredataKeys.Contacts.rawValue)
@@ -114,6 +116,7 @@ class CoreDataRequests {
         }
     }
     
+
     static func saveContacts(_ contacts:[Contact],completion: @escaping ([contactSaveError])->Void) {
         var errors = [contactSaveError] ()
         for contact in contacts {
@@ -124,6 +127,7 @@ class CoreDataRequests {
         completion(errors)
     }
     
+    ///save contact with returning the contact if not saved
     private static func saveContact(_ contact:Contact) ->contactSaveError? {
         let context = AppDelegate.shared.persistentContainer.viewContext
         let newContact = NSEntityDescription.insertNewObject(forEntityName: CoredataKeys.Contacts.rawValue, into: context)

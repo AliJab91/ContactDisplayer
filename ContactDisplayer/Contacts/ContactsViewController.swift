@@ -51,7 +51,6 @@ class ContactsViewController: UIViewController {
                     self.localContacts = CoreDataRequests.getAllContacts()
                     for contact in self.phoneContacts {
                         self.checkIfNewContact(contact)
-                        
                     }
                     for contact in self.localContacts {
                         self.getDeletedContacts(contact)
@@ -103,7 +102,6 @@ class ContactsViewController: UIViewController {
         }else {
             self.deletedContacts.append(contact)
         }
-        
     }
     
     func getEditedNumbersById(_ contact:Contact)  {
@@ -145,7 +143,6 @@ class ContactsViewController: UIViewController {
         segmentController.setTitle("Added", forSegmentAt: 1)
         segmentController.setTitle("Deleted", forSegmentAt: 2)
     }
-
 }
 
 extension ContactsViewController :UITableViewDelegate {}
@@ -165,8 +162,3 @@ extension ContactsViewController:UITableViewDataSource {
     }
 }
 
-enum ContactType {
-    case newContacts
-    case deletedContacts
-    case allContacts
-}
