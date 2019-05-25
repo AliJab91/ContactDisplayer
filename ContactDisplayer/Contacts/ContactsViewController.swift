@@ -83,8 +83,8 @@ class ContactsViewController: UIViewController {
         tableView.reloadData()
     }
     
-    
-    func checkIfNewContact(_ contact:Contact)   {
+    /// check for new contacts
+    func checkIfNewContact(_ contact:Contact) {
         if let id = contact.id {
             CoreDataRequests.contactExistsById(id) { (available) in
                 if available {
@@ -95,6 +95,7 @@ class ContactsViewController: UIViewController {
         }
     }
     
+    /// check for deleted contacts
     func getDeletedContacts(_ contact:Contact)  {
         if phoneContacts.contains(contact) {
         }else {
@@ -102,6 +103,7 @@ class ContactsViewController: UIViewController {
         }
     }
     
+    /// check for edited contacts
     func getEditedNumbersById(_ contact:Contact)  {
         for cont in phoneContacts {
             if Contact.isEdited(lhs: contact, rhs: cont){
